@@ -1,6 +1,6 @@
 ## Loading and preprocessing the data
 
-```{r}
+```{r eval=FALSE}
 unzip("activity.zip")
 data = read.csv("activity.csv", colClasses = c("integer", "Date", "factor"))
 datawona = na.omit(data)
