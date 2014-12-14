@@ -1,17 +1,12 @@
----
-title: "PA1_template"
-output: html_document
----
 ## Loading and preprocessing the data
 
 
 ```r
-unzip(zipfile="activity.zip")
+unzip("activity.zip")
 ```
 
 ```
-## Warning in unzip(zipfile = "activity.zip"): error 1 in extracting from zip
-## file
+## Warning in unzip("activity.zip"): error 1 in extracting from zip file
 ```
 
 ```r
@@ -26,6 +21,13 @@ Histogram of the total number of steps taken each day
 
 ```r
 library(ggplot2)
+```
+
+```
+## Use suppressPackageStartupMessages to eliminate package startup messages.
+```
+
+```r
 library(scales)
 ggplot(datawona, aes(date, steps)) + geom_histogram(stat = "identity") + scale_x_date(labels = date_format("%d-%m")) + labs(title = "Total number of steps taken each day", x = "Date (DD-MM)", y = "Number of steps")
 ```
@@ -116,7 +118,7 @@ New mean total number of steps taken each day:
 
 
 ```r
-newsteps <- aggregate(newdata$steps, 
+newsteps = aggregate(newdata$steps, 
                            list(Date = newdata$date), 
                            FUN = "sum")$x
 mean(newsteps)
@@ -164,17 +166,8 @@ Introducing new factor variable with two levels: weekday or weekend, in dataset
 
 
 ```r
-newdata$weekdays <- factor(format(newdata$date, "%A"))
-levels(newdata$weekdays)
-```
-
-```
-## [1] "Friday"    "Monday"    "Saturday"  "Sunday"    "Thursday"  "Tuesday"  
-## [7] "Wednesday"
-```
-
-```r
-levels(newdata$weekdays) <- list(weekday = c("Monday", "Tuesday",
+newdata$weekdays = factor(format(newdata$date, "%A"))
+levels(newdata$weekdays) = list(weekday = c("Monday", "Tuesday",
                                              "Wednesday", 
                                              "Thursday", "Friday"),
                                  weekend = c("Saturday", "Sunday"))
@@ -184,7 +177,7 @@ Panel plot containing a time series plot  of the 5-minute interval and the avera
 
 
 ```r
-averagenewsteps <- aggregate(newdata$steps, 
+averagenewsteps = aggregate(newdata$steps, 
                       list(interval = as.numeric(as.character(newdata$interval)), 
                            weekdays = newdata$weekdays),
                       FUN = "mean")

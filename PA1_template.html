@@ -203,11 +203,10 @@ hr {
 <body>
 <h2>Loading and preprocessing the data</h2>
 
-<pre><code class="r">unzip(zipfile=&quot;activity.zip&quot;)
+<pre><code class="r">unzip(&quot;activity.zip&quot;)
 </code></pre>
 
-<pre><code>## Warning in unzip(zipfile = &quot;activity.zip&quot;): error 1 in extracting from zip
-## file
+<pre><code>## Warning in unzip(&quot;activity.zip&quot;): error 1 in extracting from zip file
 </code></pre>
 
 <pre><code class="r">data = read.csv(&quot;activity.csv&quot;, colClasses = c(&quot;integer&quot;, &quot;Date&quot;, &quot;factor&quot;))
@@ -219,7 +218,12 @@ datawona = na.omit(data)
 <p>Histogram of the total number of steps taken each day</p>
 
 <pre><code class="r">library(ggplot2)
-library(scales)
+</code></pre>
+
+<pre><code>## Use suppressPackageStartupMessages to eliminate package startup messages.
+</code></pre>
+
+<pre><code class="r">library(scales)
 ggplot(datawona, aes(date, steps)) + geom_histogram(stat = &quot;identity&quot;) + scale_x_date(labels = date_format(&quot;%d-%m&quot;)) + labs(title = &quot;Total number of steps taken each day&quot;, x = &quot;Date (DD-MM)&quot;, y = &quot;Number of steps&quot;)
 </code></pre>
 
@@ -291,7 +295,7 @@ for (i in 1:nrow(newdata)) {
 
 <p>New mean total number of steps taken each day:</p>
 
-<pre><code class="r">newsteps &lt;- aggregate(newdata$steps, 
+<pre><code class="r">newsteps = aggregate(newdata$steps, 
                            list(Date = newdata$date), 
                            FUN = &quot;sum&quot;)$x
 mean(newsteps)
@@ -328,15 +332,8 @@ mean(newsteps)
 
 <p>Introducing new factor variable with two levels: weekday or weekend, in dataset</p>
 
-<pre><code class="r">newdata$weekdays &lt;- factor(format(newdata$date, &quot;%A&quot;))
-levels(newdata$weekdays)
-</code></pre>
-
-<pre><code>## [1] &quot;Friday&quot;    &quot;Monday&quot;    &quot;Saturday&quot;  &quot;Sunday&quot;    &quot;Thursday&quot;  &quot;Tuesday&quot;  
-## [7] &quot;Wednesday&quot;
-</code></pre>
-
-<pre><code class="r">levels(newdata$weekdays) &lt;- list(weekday = c(&quot;Monday&quot;, &quot;Tuesday&quot;,
+<pre><code class="r">newdata$weekdays = factor(format(newdata$date, &quot;%A&quot;))
+levels(newdata$weekdays) = list(weekday = c(&quot;Monday&quot;, &quot;Tuesday&quot;,
                                              &quot;Wednesday&quot;, 
                                              &quot;Thursday&quot;, &quot;Friday&quot;),
                                  weekend = c(&quot;Saturday&quot;, &quot;Sunday&quot;))
@@ -344,7 +341,7 @@ levels(newdata$weekdays)
 
 <p>Panel plot containing a time series plot  of the 5-minute interval and the average number of steps taken, averaged across all weekday days or weekend days</p>
 
-<pre><code class="r">averagenewsteps &lt;- aggregate(newdata$steps, 
+<pre><code class="r">averagenewsteps = aggregate(newdata$steps, 
                       list(interval = as.numeric(as.character(newdata$interval)), 
                            weekdays = newdata$weekdays),
                       FUN = &quot;mean&quot;)
