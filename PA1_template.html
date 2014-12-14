@@ -204,12 +204,7 @@ hr {
 <h2>Loading and preprocessing the data</h2>
 
 <pre><code class="r">unzip(&quot;activity.zip&quot;)
-</code></pre>
-
-<pre><code>## Warning in unzip(&quot;activity.zip&quot;): error 1 in extracting from zip file
-</code></pre>
-
-<pre><code class="r">data = read.csv(&quot;activity.csv&quot;, colClasses = c(&quot;integer&quot;, &quot;Date&quot;, &quot;factor&quot;))
+data = read.csv(&quot;activity.csv&quot;, colClasses = c(&quot;integer&quot;, &quot;Date&quot;, &quot;factor&quot;))
 datawona = na.omit(data)
 </code></pre>
 
@@ -218,12 +213,7 @@ datawona = na.omit(data)
 <p>Histogram of the total number of steps taken each day</p>
 
 <pre><code class="r">library(ggplot2)
-</code></pre>
-
-<pre><code>## Use suppressPackageStartupMessages to eliminate package startup messages.
-</code></pre>
-
-<pre><code class="r">library(scales)
+library(scales)
 ggplot(datawona, aes(date, steps)) + geom_histogram(stat = &quot;identity&quot;) + scale_x_date(labels = date_format(&quot;%d-%m&quot;)) + labs(title = &quot;Total number of steps taken each day&quot;, x = &quot;Date (DD-MM)&quot;, y = &quot;Number of steps&quot;)
 </code></pre>
 

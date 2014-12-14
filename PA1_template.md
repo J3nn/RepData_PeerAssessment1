@@ -3,13 +3,6 @@
 
 ```r
 unzip("activity.zip")
-```
-
-```
-## Warning in unzip("activity.zip"): error 1 in extracting from zip file
-```
-
-```r
 data = read.csv("activity.csv", colClasses = c("integer", "Date", "factor"))
 datawona = na.omit(data)
 ```
@@ -21,13 +14,6 @@ Histogram of the total number of steps taken each day
 
 ```r
 library(ggplot2)
-```
-
-```
-## Use suppressPackageStartupMessages to eliminate package startup messages.
-```
-
-```r
 library(scales)
 ggplot(datawona, aes(date, steps)) + geom_histogram(stat = "identity") + scale_x_date(labels = date_format("%d-%m")) + labs(title = "Total number of steps taken each day", x = "Date (DD-MM)", y = "Number of steps")
 ```
